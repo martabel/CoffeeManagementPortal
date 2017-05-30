@@ -1,0 +1,7 @@
+*.pyc
+ssl/
+ssl/*
+
+\.DS_Store
+
+venv/

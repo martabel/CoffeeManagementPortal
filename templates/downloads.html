@@ -1,0 +1,67 @@
+{%- extends "base.html" %}
+{% import "bootstrap/utils.html" as utils %}
+{% block content %}
+  <div class="container">
+  {%- with messages = get_flashed_messages(with_categories=True) %}
+  {%- if messages %}
+    <div class="row">
+      <div class="col-md-12">
+        {{utils.flashed_messages(messages)}}
+      </div>
+    </div>
+  {%- endif %}
+  {%- endwith %}
+      <h1>Dowloads</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="coffeesDM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Coffees
+          <span class="caret"></span>
+          </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            {% for listC in cLists %}
+              <li><a href="downloads?cListId={{ listC['_id'] }}">{{ listC['timestamp'] }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
+        <table class="table">
+          <caption>Kaffeeliste</caption>
+          <thead>
+            <tr> <th>Trinker</th> <th>Bezahlt</th> <th>Zeitstempel</th> </tr>
+          </thead>
+          <tbody>
+          {% for coffee in cList.Coffees %}
+            <tr> <td>{{ coffee['CoffeeCosumer_Id'] }}</td> <td>{{ coffee['Payed'] }}</td> <td>{{ coffee['DateTime'] }}</td> </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        </div>
+        <div class="col-md-6">
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="drinkerDM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Drinker
+          <span class="caret"></span>
+          </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              {% for listD in dLists %}
+                <li><a href="downloads?dListId={{ listD['_id'] }}">{{ listD['timestamp'] }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <table class="table">
+            <caption>Trinkerliste</caption>
+            <thead>
+              <tr> <th>Name</th> <th>Kaffees im Monat</th> <th>ID</th> </tr>
+            </thead>
+            <tbody>
+            {% for drinker in dList.CoffeeDrinker %}
+              <tr> <td>{{ drinker['Fullname'] }}</td> <td>{{ drinker['CoffeeActualMonth'] }}</td> <td>{{ drinker['_id'] }}</td> </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+   </div>
+{%- endblock %}
